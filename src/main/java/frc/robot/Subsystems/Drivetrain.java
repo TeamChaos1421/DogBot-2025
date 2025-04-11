@@ -11,6 +11,8 @@ public class Drivetrain extends SubsystemBase {
     private final TalonSRX backleft = new TalonSRX(17);
     private final TalonSRX frontleft = new TalonSRX(15);
 
+    private final double speedMult = 0.25;
+
     public Drivetrain () {
         frontright.setInverted(false);
         backright.setInverted(true);
@@ -24,13 +26,13 @@ public class Drivetrain extends SubsystemBase {
         double rotSpeed = 0;
 
         if (Math.abs(xIn) >= 0.1) {
-            xSpeed = Math.pow(xIn, 3);
+            xSpeed = Math.pow(xIn, 3) * speedMult;
         }
         if (Math.abs(yIn) >= 0.1) {
-            ySpeed = Math.pow(yIn, 3);
+            ySpeed = Math.pow(yIn, 3) * speedMult;
         }
         if (Math.abs(rotIn) >= 0.1) {
-            rotSpeed = Math.pow(rotIn, 3);
+            rotSpeed = Math.pow(rotIn, 3) * speedMult;
         }
 
         frontright.set(TalonSRXControlMode.PercentOutput, xSpeed + ySpeed + rotSpeed);
